@@ -17,13 +17,13 @@ static void cb(struct mg_connection *c, int ev, void *ev_data, void *fn_data) {
   }
 }
 
-int main(void) {
+int main(int argc, char* argv[]) {
   struct mg_mgr mgr;
   struct mg_timer t1;
 
   mg_mgr_init(&mgr);
   mg_log_set("3");
-  mg_http_listen(&mgr, "http://localhost:8000", cb, NULL);
+  mg_http_listen(&mgr, "http://0.0.0.0:8000", cb, NULL);
 
   for (;;) mg_mgr_poll(&mgr, 50);
   mg_mgr_free(&mgr);
