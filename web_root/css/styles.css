@@ -1,0 +1,6 @@
+.scroolBar {
+  height:100px;
+  overflow-y: scroll;
+}
+
+#wrapper { margin-top: 1em; }

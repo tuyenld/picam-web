@@ -1,36 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>example</title>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <style>
-      #container { margin-right: auto; margin-left: auto; max-width: 480px; }
-      #info { background: #e0f0f0; border-radius: .5em; padding: 2em;  }
-      #wrapper { margin-top: 1em; }
-    </style>
-  </head>
-  <body>
-    <div id="container">
-      <div id="info">
-        Mongoose always buffers a full HTTP message before invoking
-        MG_EV_HTTP_MSG event. Big POST request require of lot
-        of RAM to buffer everything. Therefore, in order to upload large
-        files on memory-constrained system, a large file should be send
-        in small chunks.
-        <br/><br/>
-        In this example, JavaScript code on this page sends uploaded
-        file in 2k chunks using an <code>/upload</code> endpoint.
-        Uploaded file is stored in <code>/tmp</code> directory by the helper
-				API function <code>mg_http_upload()</code>
+<html>
+   <body>
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+
+      <head>
+         <title>Showmewebcam Camera Settings</title>
+         <link rel="stylesheet" href="css/styles.css">
+      </head>
+      <div class="container">
+         <h1>Visit tabs to change your webcam setting.</h1>
+         <p> Click <code>Save</code> to save setting. For more information, please visit <a href="https://github.com/showmewebcam/showmewebcam" target="blank">https://github.com/showmewebcam/showmewebcam</a>.</p>
+         <ul class="nav nav-tabs">
+            <li class="active"><a href="#usrCtrl" data-toggle="tab">User Controls</a></li>
+            <li><a href="#codeCtrl" data-toggle="tab">Codec Controls</a></li>
+            <li><a href="#camCtrl" data-toggle="tab">Camera Controls</a></li>
+            <li><a href="#JPEGCtrl" data-toggle="tab">JPEG Compression Controls</a></li>
+            <li><a href="#fwUp" data-toggle="tab">Firmware Upgrade</a></li>
+         </ul>
+         <div class="tab-content">
+            <div class="tab-pane active" id="usrCtrl">
+               <br>
+               <div class="container scroolBar" id="usrCtrlSettings">
+                 <!-- Place holder -->
+               </div>
+               <button id="speak">Speak</button>
+            </div>
+            <div class="tab-pane" id="codeCtrl">
+               <h1>I'm in second tab</h1>
+            </div>
+            <div class="tab-pane" id="camCtrl">
+               <h1>I'm in third tab</h1>
+            </div>
+            <div class="tab-pane" id="JPEGCtrl">
+               <h1>I'm in third tab</h1>
+            </div>
+            <div class="tab-pane" id="fwUp">
+               <br>
+               <p>Upload new Showmewebcam, you could check new version from <a href="https://github.com/showmewebcam/showmewebcam/releases" target="blank">Github</a></p>
+               <label for="myFile1">Firmware File</label>
+
+               <div id="wrapper">
+                 <input type="file" id="fwUpFile" style="display: none"/>
+                 <button id="fwUpFileBt">choose file...</button>
+                 <div id="fwUpFileStt"></div>
+               </div>
+
+            </div>
+
+            <div id="info">
+              A div below shows live MJPEG video stream from the server, which
+              is simulated by reading files from the images/ directory.
+              <br/><br/>
+              You can also use <code>curl</code> command-line utility:
+              <br/><code>curl localhost:8000/api/video1</code>
+            </div>
+            <img src="/api/video1" />
+         </div>
       </div>
-      <div id="wrapper">
-        <input type="file" id="el1" style="display: none"/>
-        <button id="el2">choose file...</button>
-        <div id="el3"></div>
-      </div>
-    </div>
-  </body>
-  <script src="app.js"></script>
+
+      <script src="js/jquery.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+      <script src="js/picamweb.js"></script>
+      <script>
+         $(document).ready(function(){
+           createSetings();
+         });
+      </script>
+   </body>
 </html>
