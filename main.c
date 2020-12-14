@@ -28,6 +28,7 @@ static void cb(struct mg_connection *c, int ev, void *ev_data, void *fn_data) {
       mg_http_serve_dir(c, ev_data, s_web_directory);
     }
   }
+  (void) fn_data;
 }
 
 // The image stream is simulated by sending MJPEG frames specified by the
@@ -38,8 +39,9 @@ static void broadcast_mjpeg_frame(struct mg_mgr *mgr) {
   size_t nfiles = sizeof(files) / sizeof(files[0]);
   static size_t i;
   char path[100];
-  strcpy(path, files[i++ % nfiles]);
-  strcat(path, s_web_directory);
+  strcpy(path, s_web_directory);
+  strcat(path, files[i++ % nfiles]);
+  printf("image path: %s\n", path);
   size_t size = mg_file_size(path);
   char *data = mg_file_read(path);  // Read next file
   struct mg_connection *c;
@@ -72,7 +74,7 @@ int main(int argc, char **argv) {
         strcpy(s_web_directory, optarg);
         break;
     default: /* '?' */
-        fprintf(stderr, "Usage: %s [-d web_root (default: web_root)]\n",
+        fprintf(stderr, "Usage: %s [-d web_dir (default: web_root)]\n",
                 argv[0]);
         exit(EXIT_FAILURE);
     }
